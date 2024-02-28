@@ -1,27 +1,25 @@
 <script setup>
 import Card from '@/components/Card.vue'
 
+defineProps({
+  items: Array
+})
+
 const onClickAdd = () => {
   alert('asdasdasdsad')
 }
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-5">
+  <div class="grid grid-cols-4 gap-5 mt-10">
     <Card
-      imageUrl="/sneakers/sneakers-1.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="12000"
+      v-for="item in items"
+      :key="item.id"
+      :imageUrl="item.imageUrl"
+      :title="item.title"
+      :price="item.price"
       :isFavorite="true"
       :isAdded="false"
-      :onClickAdd="onClickAdd"
-    />
-    <Card
-      imageUrl="/sneakers/sneakers-2.jpg"
-      title="Мужские Кроссовки Nike Blazer Mid Suede"
-      :price="2000"
-      :isFavorite="false"
-      :isAdded="true"
       :onClickAdd="onClickAdd"
     />
   </div>
