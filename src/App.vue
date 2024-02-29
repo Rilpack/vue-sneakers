@@ -111,7 +111,7 @@ provide('carts', { carts, addToCart })
 
 <template>
   <Drawer :total-price="totalPrice" @close-drawer="closeDrawer" v-if="drawerOpen" />
-  <div class="w-4/5 mx-auto bg-white rounded-xl shadow-xl mt-14">
+  <div class="w-4/5 mx-auto bg-white rounded-xl shadow-xl mt-14 mb-14">
     <Header :total-price="totalPrice" @open-drawer="openDrawer" />
 
     <div class="p-10">
