@@ -1,13 +1,20 @@
 <script setup>
 import ReturnIcon from '@/components/Icons/ReturnIcon.vue'
 import CartItemList from '@/components/CartItemList.vue'
+
+const emit = defineEmits(['closeDrawer'])
+defineProps({
+  totalPrice: Number
+})
 </script>
 
 <template>
   <div class="fixed top-0 left-0 h-full w-full bg-black opacity-60 z-10"></div>
   <div class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8">
     <div class="flex items-center gap-5 mb-5">
-      <ReturnIcon />
+      <div @click="() => emit('closeDrawer')">
+        <ReturnIcon />
+      </div>
       <h2 class="text-2xl font-bold">Корзина</h2>
     </div>
 
@@ -17,7 +24,7 @@ import CartItemList from '@/components/CartItemList.vue'
       <div class="flex gap-1">
         <span>Итого:</span>
         <div class="flex-1 border-b border-dashed" />
-        <b>12900 ₽</b>
+        <b>{{ totalPrice }} ₽</b>
       </div>
       <div class="flex gap-1">
         <span>Налог 5%:</span>

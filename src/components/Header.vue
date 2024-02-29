@@ -1,3 +1,11 @@
+<script setup>
+import { inject, onMounted, ref, watch } from 'vue'
+const emit = defineEmits(['openDrawer'])
+defineProps({
+  totalPrice: Number
+})
+</script>
+
 <template>
   <header class="flex justify-between border-b border-slate-300 px-8 py-4">
     <div class="flex items-center gap-4 select-none">
@@ -9,9 +17,12 @@
     </div>
 
     <ul class="flex items-center gap-6">
-      <li class="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer transition">
+      <li
+        @click="() => emit('openDrawer')"
+        class="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer transition"
+      >
         <img src="/cart.svg" alt="cart" />
-        <span class="">1205 руб.</span>
+        <span class="">{{ totalPrice }} руб.</span>
       </li>
       <li class="flex items-center gap-2 text-slate-600 hover:text-black cursor-pointer transition">
         <img src="/heart.svg" alt="cart" />

@@ -1,16 +1,38 @@
 <script setup>
+import { onMounted, ref, reactive, watch, provide, computed } from 'vue'
+import axios from 'axios'
 import Header from '@/components/Header.vue'
 import CardList from '@/components/CardList.vue'
 import Drawer from './components/Drawer.vue'
-import { onMounted, ref, reactive, watch, provide } from 'vue'
-import axios from 'axios'
 
 const items = ref([])
+const carts = ref([])
+const drawerOpen = ref(false)
+const totalPrice = computed(() => carts.value.reduce((total, cart) => total + cart.price, 0))
 
 const filters = reactive({
   sortBy: 'title',
   searchQuery: ''
 })
+
+const addToCart = (item) => {
+  if (!item.isAdded) {
+    carts.value.push(item)
+    item.isAdded = true
+  } else {
+    carts.value.splice(carts.value.indexOf(item), 1)
+    item.isAdded = false
+  }
+  console.log(carts.value)
+}
+
+const closeDrawer = () => {
+  drawerOpen.value = false
+}
+
+const openDrawer = () => {
+  drawerOpen.value = true
+}
 
 const onChangeSelect = (event) => {
   filters.sortBy = event.target.value
@@ -81,13 +103,16 @@ onMounted(async () => {
   await fetchItems()
   await fetchFavorites()
 })
+
 watch(filters, fetchItems)
+
+provide('carts', { carts, addToCart })
 </script>
 
 <template>
-  <!-- <Drawer /> -->
+  <Drawer :total-price="totalPrice" @close-drawer="closeDrawer" v-if="drawerOpen" />
   <div class="w-4/5 mx-auto bg-white rounded-xl shadow-xl mt-14">
-    <Header />
+    <Header :total-price="totalPrice" @open-drawer="openDrawer" />
 
     <div class="p-10">
       <div class="flex justify-between items-center">
@@ -111,7 +136,7 @@ watch(filters, fetchItems)
         </div>
       </div>
 
-      <CardList :items="items" @addToFavorite="addToFavorite" />
+      <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="addToCart" />
     </div>
   </div>
 </template>
