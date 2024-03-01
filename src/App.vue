@@ -7,13 +7,35 @@ import Drawer from './components/Drawer.vue'
 
 const items = ref([])
 const carts = ref([])
+const isCreatingOrder = ref(false)
 const drawerOpen = ref(false)
 const totalPrice = computed(() => carts.value.reduce((total, cart) => total + cart.price, 0))
+const vatPrice = computed(() => Math.round(totalPrice.value * 5) / 100)
 
 const filters = reactive({
   sortBy: 'title',
   searchQuery: ''
 })
+
+const cartIsEmpty = computed(() => carts.value.length === 0)
+
+const cartButtonDisabled = computed(() => isCreatingOrder.value || cartIsEmpty.value)
+
+const createOrder = async () => {
+  try {
+    isCreatingOrder.value = true
+    const { data } = axios.post('https://8f52475f6c5eaaba.mokky.dev/orders', {
+      items: carts.value,
+      totalPrice: totalPrice.value + vatPrice.value
+    })
+    carts.value = []
+    return data
+  } catch (err) {
+    console.log(err)
+  } finally {
+    isCreatingOrder.value = false
+  }
+}
 
 const addToCart = (item) => {
   if (!item.isAdded) {
@@ -23,7 +45,6 @@ const addToCart = (item) => {
     carts.value.splice(carts.value.indexOf(item), 1)
     item.isAdded = false
   }
-  console.log(carts.value)
 }
 
 const closeDrawer = () => {
@@ -100,17 +121,47 @@ const addToFavorite = async (item) => {
 }
 
 onMounted(async () => {
+  const localCart = localStorage.getItem('carts')
+  carts.value = localCart ? JSON.parse(localCart) : []
+
   await fetchItems()
   await fetchFavorites()
+
+  items.value = items.value.map((item) => ({
+    ...item,
+    isAdded: carts.value.some((cartItem) => cartItem.id === item.id)
+  }))
 })
 
 watch(filters, fetchItems)
+watch(carts, () => {
+  items.value = items.value.map((item) => ({
+    ...item,
+    isAdded: false
+  }))
+})
+watch(
+  carts,
+  () => {
+    localStorage.setItem('carts', JSON.stringify(carts.value))
+  },
+  {
+    deep: true
+  }
+)
 
 provide('carts', { carts, addToCart })
 </script>
 
 <template>
-  <Drawer :total-price="totalPrice" @close-drawer="closeDrawer" v-if="drawerOpen" />
+  <Drawer
+    :disabled-button="cartButtonDisabled"
+    :total-price="totalPrice"
+    :vat-price="vatPrice"
+    @close-drawer="closeDrawer"
+    @create-order="createOrder"
+    v-if="drawerOpen"
+  />
   <div class="w-4/5 mx-auto bg-white rounded-xl shadow-xl mt-14 mb-14">
     <Header :total-price="totalPrice" @open-drawer="openDrawer" />
 
