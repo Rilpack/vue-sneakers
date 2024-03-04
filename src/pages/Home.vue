@@ -18,7 +18,7 @@ const onChangeSelect = (event) => {
 
 const onChangeSearch = debounce((event) => {
   filters.searchQuery = event.target.value
-}, 500)
+}, 400)
 
 const addToFavorite = async (item) => {
   try {
