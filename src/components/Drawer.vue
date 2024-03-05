@@ -62,7 +62,7 @@ const createOrder = async () => {
       />
     </div>
 
-    <div v-else>
+    <div v-else class="flex flex-col h-full pb-6">
       <CartItemList />
 
       <div v-if="totalPrice" class="flex flex-col gap-4 mb-6 mt-7">

@@ -1,6 +1,9 @@
 <script setup>
 import LikeIconVue from './Icons/LikeIcon.vue'
 import LikeIconActiveVue from './Icons/LikeIconActive.vue'
+import PlusIconVue from './Icons/PlusIcon.vue'
+import CheckedIconVue from './Icons/CheckedIcon.vue'
+
 defineProps({
   id: Number,
   imageUrl: String,
@@ -15,7 +18,7 @@ defineProps({
 
 <template>
   <div
-    class="flex flex-col items-center justify-between bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition dark:bg-[#1F2937] dark:border-slate-600"
+    class="flex flex-col items-center justify-between bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition dark:bg-[#1F2937] dark:border-slate-600 dark:shadow-slate-700"
   >
     <div class="relative">
       <img
@@ -24,11 +27,11 @@ defineProps({
         alt="sneaker"
       />
 
-      <div v-if="!isFavorite" class="absolute top-4 left-4">
+      <div v-if="isFavorite" class="absolute top-4 left-4">
         <LikeIconActiveVue v-if="onClickFavorite" @click="onClickFavorite" />
       </div>
 
-      <div v-if="isFavorite" class="absolute top-4 left-4">
+      <div v-if="!isFavorite" class="absolute top-4 left-4">
         <LikeIconVue v-if="onClickFavorite" @click="onClickFavorite" />
       </div>
     </div>
@@ -40,12 +43,14 @@ defineProps({
         <span class="text-slate-400 dark:text-slate-100">Цена:</span>
         <b class="dark:text-slate-400">{{ price }} руб.</b>
       </div>
-      <img
-        v-if="onClickAdd"
-        @click="onClickAdd"
-        :src="isAdded ? '/checked.svg' : '/plus.svg'"
-        alt="plus"
-      />
+
+      <div v-if="!isAdded">
+        <PlusIconVue v-if="onClickAdd" @click="onClickAdd" />
+      </div>
+
+      <div v-if="isAdded">
+        <CheckedIconVue v-if="onClickAdd" @click="onClickAdd" />
+      </div>
     </div>
   </div>
 </template>
