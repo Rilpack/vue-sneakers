@@ -1,4 +1,6 @@
 <script setup>
+import LikeIconVue from './Icons/LikeIcon.vue'
+import LikeIconActiveVue from './Icons/LikeIconActive.vue'
 defineProps({
   id: Number,
   imageUrl: String,
@@ -13,7 +15,7 @@ defineProps({
 
 <template>
   <div
-    class="flex flex-col items-center bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition dark:bg-slate-800 dark:border-slate-600"
+    class="flex flex-col items-center justify-between bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition dark:bg-[#1F2937] dark:border-slate-600"
   >
     <div class="relative">
       <img
@@ -21,13 +23,14 @@ defineProps({
         :src="imageUrl"
         alt="sneaker"
       />
-      <img
-        v-if="onClickFavorite"
-        @click="onClickFavorite"
-        class="absolute top-4 left-4 border border-slate-200 rounded-xl"
-        :src="isFavorite ? '/like-2.svg' : '/like-1.svg'"
-        alt="like"
-      />
+
+      <div v-if="!isFavorite" class="absolute top-4 left-4">
+        <LikeIconActiveVue v-if="onClickFavorite" @click="onClickFavorite" />
+      </div>
+
+      <div v-if="isFavorite" class="absolute top-4 left-4">
+        <LikeIconVue v-if="onClickFavorite" @click="onClickFavorite" />
+      </div>
     </div>
 
     <p class="w-full mt-6 dark:text-white text-lg">{{ title }}</p>

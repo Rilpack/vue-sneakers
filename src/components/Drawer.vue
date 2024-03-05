@@ -39,7 +39,7 @@ const createOrder = async () => {
 
 <template>
   <div class="fixed top-0 left-0 h-full w-full bg-black opacity-60 z-10"></div>
-  <div class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8 dark:bg-slate-700">
+  <div class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8 dark:bg-[#1F2937]">
     <div class="flex items-center gap-4 mb-5">
       <div @click="closeDrawer">
         <ReturnIcon />
