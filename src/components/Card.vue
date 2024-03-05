@@ -13,7 +13,7 @@ defineProps({
 
 <template>
   <div
-    class="relative bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition"
+    class="relative bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition dark:bg-slate-800 dark:border-slate-600"
   >
     <img
       v-if="onClickFavorite"
@@ -22,7 +22,8 @@ defineProps({
       :src="isFavorite ? '/like-2.svg' : '/like-1.svg'"
       alt="like"
     />
-    <img :src="imageUrl" alt="sneaker" />
+
+    <img class="w-full h-auto max-w-[266px]" :src="imageUrl" alt="sneaker" />
 
     <p class="mt-2">{{ title }}</p>
 

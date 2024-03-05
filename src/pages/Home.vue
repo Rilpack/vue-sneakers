@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import { reactive, inject, watch, ref, onMounted } from 'vue'
 import CardList from '@/components/CardList.vue'
