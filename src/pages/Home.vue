@@ -81,6 +81,7 @@ const fetchItems = async () => {
 }
 
 watch(filters, fetchItems)
+watch(filters, fetchFavorites)
 watch(carts, () => {
   items.value = items.value.map((item) => ({
     ...item,
