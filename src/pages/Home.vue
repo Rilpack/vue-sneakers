@@ -108,17 +108,36 @@ onMounted(async () => {
     <h2 class="text-3xl font-bold mb-8 dark:text-slate-100">Все кроссовки</h2>
 
     <div class="flex gap-4">
-      <select @change="onChangeSelect" class="py-2 px-3 border rounded-md outline-none">
-        <option value="name">По названию</option>
-        <option value="price">По цене (дешевые)</option>
-        <option value="-price">По цене (дорогие)</option>
-      </select>
-
+      <div class="relative">
+        <select
+          placeholder="Фильтр"
+          @change="onChangeSelect"
+          class="bg-transparent border-2 rounded-md appearance-none focus-visible:ring-gray-400 focus:border-gray-400 hover:border-gray-400 block w-full p-2 pl-4 w-48 dark:bg-[#0F1A26] dark:border dark:border-slate-700 dark:placeholder-slate-400 dark:text-white"
+        >
+          <option class="text-black dark:text-white" value="name">По названию</option>
+          <option class="text-black dark:text-white" value="price">По цене (дешевые)</option>
+          <option class="text-black dark:text-white" value="-price">По цене (дорогие)</option>
+        </select>
+        <div class="absolute right-0 top-0 bottom-0 flex items-center pointer-events-none pr-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 text-gray-500 dark:text-white"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 12a1 1 0 0 0 .707-.293l4-4a1 1 0 1 0-1.414-1.414L10 9.586 6.707 6.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 .707.293z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
       <div class="relative">
         <img class="absolute top-3 left-3" src="/search.svg" />
         <input
           @input="onChangeSearch"
-          class="border rounded-md py-2 pl-9 pr-4 outline-none focus:border-gray-400"
+          class="border-2 rounded-md py-2 pl-9 pr-4 outline-none focus:border-black hover:border-gray-400 bg-transparent dark:text-white dark:border dark:border-slate-700 dark:hover:border-white dark:focus:border-white"
           placeholder="Поиск"
         />
       </div>

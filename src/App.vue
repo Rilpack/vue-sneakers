@@ -45,7 +45,9 @@ provide('carts', { carts, addToCart, closeDrawer })
 
 <template>
   <Drawer :total-price="totalPrice" :vat-price="vatPrice" v-if="drawerOpen" />
-  <div class="w-4/5 mx-auto bg-white rounded-xl shadow-xl mt-14 mb-14 dark:bg-[#0F1A26]">
+  <div
+    class="w-4/5 mx-auto bg-white rounded-xl shadow-xl mt-14 mb-14 dark:bg-[#0F1A26] dark:border dark:border-slate-700"
+  >
     <Header :total-price="totalPrice" @open-drawer="openDrawer" />
 
     <div class="p-10">

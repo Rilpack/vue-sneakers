@@ -22,7 +22,7 @@ defineProps({
   >
     <div class="relative">
       <img
-        class="w-full h-auto max-w-[266px] rounded-3xl border border-slate-700"
+        class="w-full h-auto max-w-[266px] rounded-3xl border border-slate-100 dark:border-slate-700"
         :src="imageUrl"
         alt="sneaker"
       />
