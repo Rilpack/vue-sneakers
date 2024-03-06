@@ -1,4 +1,6 @@
 <script setup>
+import CloseIconVue from './Icons/CloseIcon.vue'
+
 defineProps({
   id: Number,
   imageUrl: String,
@@ -19,12 +21,13 @@ const emit = defineEmits(['addToCart'])
       <p class="dark:text-slate-100">{{ title }}</p>
       <div class="flex justify-between mt-2">
         <b class="flex-1 dark:text-slate-100">{{ price }} руб.</b>
-        <img
+
+        <div
           @click="() => emit('addToCart')"
           class="opacity-40 hover:opacity-100 cursor-pointer transition"
-          src="/close.svg"
-          alt="delete-sneaker"
-        />
+        >
+          <CloseIconVue />
+        </div>
       </div>
     </div>
   </div>
