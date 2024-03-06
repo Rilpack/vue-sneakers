@@ -1,5 +1,9 @@
 <script setup>
 import ProfileIconVue from './Icons/ProfileIcon.vue'
+import HeartIconVue from './Icons/HeartIcon.vue'
+import MoonIconVue from './Icons/MoonIcon.vue'
+import CartIconVue from './Icons/CartIcon.vue'
+
 const emit = defineEmits(['openDrawer'])
 defineProps({
   totalPrice: Number
@@ -25,21 +29,18 @@ const toggleTheme = () => {
     </router-link>
 
     <ul class="flex items-center gap-6">
-      <li class="cursor-pointer mr-6" @click="toggleTheme">
-        <img src="/moon.svg" alt="cart" />
-      </li>
       <li
         @click="() => emit('openDrawer')"
         class="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer transition dark:text-slate-200"
       >
-        <img src="/cart.svg" alt="cart" />
+        <CartIconVue />
         <span class="">{{ totalPrice }} руб.</span>
       </li>
       <router-link to="/favorites">
         <li
           class="flex items-center gap-2 text-slate-600 hover:text-black cursor-pointer transition dark:text-slate-200"
         >
-          <img src="/heart.svg" alt="cart" />
+          <HeartIconVue />
           <span>Закладки</span>
         </li>
       </router-link>
@@ -48,6 +49,9 @@ const toggleTheme = () => {
       >
         <ProfileIconVue />
         <span>Профиль</span>
+      </li>
+      <li class="cursor-pointer ml-8" @click="toggleTheme">
+        <MoonIconVue />
       </li>
     </ul>
   </header>
